@@ -1,0 +1,6 @@
+{
+    "port": 1000,
+    "mongoUrl": "'mongodb://localhost:27017/graphql",
+    "jwtSecret": "sdfshdfdufhdsfhsfdsfhskfhskf",
+    "baseUrl": "http://localhost:1000"
+}
