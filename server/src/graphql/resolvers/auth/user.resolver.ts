@@ -26,6 +26,7 @@ const createUser: CreateUser = async (userName, email, password) => {
 
             const hashedPassword = await bcrypt.hash(password, 12)
             const newShortid = shortid.generate()
+            
             const settings = {
                 avatar: { url: '' },
                 isDarkTheme: true

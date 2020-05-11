@@ -8,15 +8,13 @@
     "dev-wp": "cross-env NODE_ENV=development webpack --config webpack.start.js",
     "dev-serve": "nodemon dist/index.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.start.js",
-    "start": "node dist/index"
+    "start": "node dist/index",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/express-pino-logger": "^4.0.2",
-    "@types/jsonwebtoken": "^8.3.9",
-    "@types/pino": "^6.0.0",
-    "@types/shortid": "^0.0.29",
-    "@types/validator": "^13.0.0",
     "apollo-server-express": "^2.12.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.1",
@@ -31,12 +29,20 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express-pino-logger": "^4.0.2",
+    "@types/jsonwebtoken": "^8.3.9",
+    "@types/pino": "^6.0.0",
+    "@types/shortid": "^0.0.29",
+    "@types/validator": "^13.0.0",
     "@types/config": "^0.0.36",
     "@types/mongoose": "^5.7.14",
     "@types/webpack-env": "^1.15.2",
+    "babel-jest": "^26.0.1",
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.2.0",
     "cross-env": "^7.0.2",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.3",
     "string-loader": "^0.0.1",
     "ts-loader": "^7.0.2",

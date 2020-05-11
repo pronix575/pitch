@@ -9,8 +9,8 @@ type Message = {
     message: string
 }
 
-const isNormalPassword = (password: string): boolean | Message => {
-    if (password.length < 6) {
+export const isNormalPassword = (password: string): boolean | Message => {
+    if (password.length > 6) {
         return true
     } 
 
@@ -19,7 +19,7 @@ const isNormalPassword = (password: string): boolean | Message => {
     }
 }
 
-const isNormalUserName = (name: string): boolean | Message => {
+export const isNormalUserName = (name: string): boolean | Message => {
     
     if (name.length < 3) {
         return true
@@ -30,7 +30,7 @@ const isNormalUserName = (name: string): boolean | Message => {
     }
 }
 
-const isNormalEmail = (email: string): Message | boolean => {
+export const isNormalEmail = (email: string): Message | boolean => {
     if ( !validator.isEmail(email) ) { return { message: "uncorrect email" } } else { return true }
 }
 

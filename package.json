@@ -1,7 +1,18 @@
 {
-  "name": "pitcher",
+  "name": "pitch",
   "version": "0.0.1",
   "main": "index.js",
   "author": "pronix575 <proenix575@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "setup": "cd client && yarn install && cd ../server && yarn install",
+    "build": "cd client && yarn build && cd ../server && yarn build",
+    "start": "cd server && yarn start",
+    "dev:build": "cd server && yarn dev-wp",
+    "dev:serve": "cd server && yarn dev-serve",
+    "dev:client": "cd client && yarn start",
+    "ds": "yarn dev:serve",
+    "db": "yarn dev:build",
+    "dc": "yarn dev:client"
+  }
 }

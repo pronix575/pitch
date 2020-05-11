@@ -15,9 +15,7 @@ const production: boolean = process.env.NODE_ENV == "production",
 const app = express()
 app.use(bodyParser())
 
-if (production) {
-    app.use(expressLogger)
-}
+production && app.use(expressLogger)
 
 server.applyMiddleware({ app })
 
@@ -30,7 +28,7 @@ const start = async () => {
         })
 
         app.listen(PORT, (): void => {
-            console.log(`🚀 Server ready at port ${ PORT }, http://localhost:${ PORT }`)
+            console.log(`Server ready at port ${ PORT }${ !production && ", http://localhost:" + PORT }`)
         })
     } catch (e) {
         console.log('Server error')

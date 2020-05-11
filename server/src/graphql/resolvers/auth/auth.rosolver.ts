@@ -1,5 +1,5 @@
-import { LoginResolver } from "../../../types";
-import { loginValidator } from "../../../validator/validator";
+import { LoginResolver } from "../../../types"
+import { loginValidator } from "../../../validator/validator"
 
 export const loginResolver: LoginResolver = async (_, { email, password }) => {
     try {
