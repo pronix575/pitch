@@ -1,2 +1,4 @@
 export const LOGIN = 'AUTH/LOGIN',
-             DEFAULT = 'DEFAULT'
+             DEFAULT = 'DEFAULT',
+             NEW_NOTIFICATION = 'NOTIFICATION/NEW',
+             REMOVE_NOTIFICATION = 'NOTIFICATION/REMOVE'

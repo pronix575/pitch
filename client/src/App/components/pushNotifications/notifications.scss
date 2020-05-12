@@ -1,0 +1,43 @@
+.notifications {
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+
+    .notificationsWrap {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 5;
+        margin: 62px 0 0 0;
+        
+        .pushNotification {
+            backdrop-filter: blur(3px);
+            max-width: 400px;
+            // min-width: 360px;
+            width: 100%;
+            z-index: 5;
+            border-radius: 10px;
+            // margin: 0 0px 10px;
+            padding: 10px;
+            background: rgb(22, 22, 22);
+            color: white;
+            font-weight: bold;
+            // box-shadow: var(--base-shadow);
+            
+            .notificationMessage {
+                span {
+                    font-weight: lighter;
+                    color: rgba(255, 255, 255, 0.85);
+                }
+            }
+        }
+
+        .warningNotification {
+            background: rgba(255, 166, 0, 0.639);
+        }
+
+        .errorNotification {
+            background: rgba(255, 0, 0, 0.639);
+        }
+    }
+}

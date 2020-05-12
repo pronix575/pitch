@@ -4,7 +4,7 @@ import { LoginQuery } from "../types"
 
 export const loginQuery: LoginQuery = async (form) => {
 
-    const { data } = await gqlClient.query({
+    const data = await gqlClient.query({
 
         query: GQL_LOGIN,
         variables: {

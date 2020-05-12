@@ -3,11 +3,13 @@ import { Flex } from '../../../components/grid/Flex'
 import { Form } from '../../../components/forms/Form'
 import { Input } from '../../../components/inputs/Input'
 import { Button } from '../../../components/buttons/Button'
-import { SignInForm, ChangeEvent, SubmitEvent } from '../../../types'
+import { SignInForm, ChangeEvent, SubmitEvent, LoginResponse } from '../../../types'
 import { NavLink } from 'react-router-dom'
-import { Range } from '../../../components/grid/Range'
 import { Loader } from '../../../components/loaders/Loader'
 import { loginQuery } from '../../../graphql/queries'
+import { useDispatch } from 'react-redux'
+import { sendNewNotification } from '../../../redux/actions/notifications.action'
+import { ApolloCurrentQueryResult } from 'apollo-boost'
 
 export const SignInPage: React.FC = () => {
 
@@ -18,15 +20,22 @@ export const SignInPage: React.FC = () => {
 
     const [loading, setLoading] = useState(false)
 
+    const dispatch = useDispatch()
+
     const submitHandler = async (event: SubmitEvent) => {
         event.preventDefault()
 
         setLoading(true)
-        const data: any = await loginQuery(form)
+        const { data }: ApolloCurrentQueryResult<LoginResponse> = await loginQuery(form)
+        const res = data?.login
 
-        // data && data?.login
+        res && res?.message !== "success" && dispatch(sendNewNotification({
+            message: res?.message || 'app error',
+            type: 'ERROR'
+        }, 5000))
 
-        console.log(data)
+        res && res?.message === "success" && console.log(res)
+
         setLoading(false)
     }   
 
@@ -45,10 +54,10 @@ export const SignInPage: React.FC = () => {
             <div className="w100">
                 <Form styles={{ paddig: "10px" }} onSubmit={ submitHandler }>
 
-                    <h3 style={{ margin: "2px 0 10px 0" }}>
-                        Sign in
-                    </h3>
-
+                    <h2 style={{ margin: "2px 0 10px 0" }}>
+                        Log in
+                    </h2>
+                    
                     <Input 
                         type="email"
                         name="email"
@@ -79,10 +88,13 @@ export const SignInPage: React.FC = () => {
                     </Button>
                 </Form>
 
-
-                <NavLink to="/sign-up">
-                    <div className="minilink flex">no account?</div>
-                </NavLink>
+                <Flex className="w100 flex">
+                    <div className="minilink flex">
+                        <NavLink to="/sign-up" style={{ color: "rgb(171, 171, 171)" }}>
+                            no account?
+                        </NavLink>
+                    </div>
+                </Flex>
             </div>    
         </Flex>
     )

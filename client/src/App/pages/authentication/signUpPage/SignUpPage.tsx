@@ -6,8 +6,6 @@ import { SignUpForm, ChangeEvent } from '../../../types'
 import { Button } from '../../../components/buttons/Button'
 import { NavLink } from 'react-router-dom'
 import { Flex } from '../../../components/grid/Flex'
-import { Range } from '../../../components/grid/Range'
-
 
 export const SignUpPage: React.FC = () => {
 
@@ -34,9 +32,9 @@ export const SignUpPage: React.FC = () => {
             <div className="w100">
                 <Form styles={{ paddig: "10px" }}>
                     
-                    <h3 style={{ margin: "2px 0 10px 0" }}>
+                    <h2 style={{ margin: "2px 0 10px 0" }}>
                         Registration
-                    </h3>
+                    </h2>
 
                     <Input 
                         type="text"
@@ -65,15 +63,16 @@ export const SignUpPage: React.FC = () => {
                         placeholder="password"
                     />
 
-                    {/* <Range height={ 5 } /> */}
-                    
                     <Button>create accaunt</Button>
                 </Form>
 
-
-                <NavLink to="/sign-in">
-                    <div className="minilink flex">already have an account?</div>
-                </NavLink>
+                <Flex className="w100 flex">
+                    <div className="minilink flex">
+                        <NavLink to="/sign-in" style={{ color: "rgb(171, 171, 171)" }}>
+                        already have an account?
+                        </NavLink>
+                    </div>
+                </Flex>
             </div>    
         </Flex>
     )

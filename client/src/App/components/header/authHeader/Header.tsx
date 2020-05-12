@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
                             <Range width={ 5 } />
 
                             <NavLink to="/sign-in">
-                                <Button classList={ signinClassList }>login</Button>
+                                <Button classList={ signinClassList }>log in</Button>
                             </NavLink>    
                         </>
                     }

@@ -24,8 +24,12 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
+    "chalk": "^4.0.0",
     "node-sass": "^4.14.0",
-    "typescript": "~3.7.2"
+    "progress-bar-webpack-plugin": "^2.1.0",
+    "typescript": "~3.7.2",
+    "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^3.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
