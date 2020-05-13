@@ -11,6 +11,8 @@
         margin: 62px 0 0 0;
         
         .pushNotification {
+            animation-name: opacityAnimation;
+            animation-duration: .5s;
             backdrop-filter: blur(3px);
             max-width: 400px;
             // min-width: 360px;
@@ -41,3 +43,8 @@
         }
     }
 }
+
+@keyframes opacityAnimation {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }

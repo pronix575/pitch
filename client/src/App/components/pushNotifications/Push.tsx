@@ -1,5 +1,6 @@
 import React from 'react'
 import { Notification } from '../../types'
+import { Motion, PlainStyle, spring } from 'react-motion'
 
 interface IPush {
     notification: Notification
@@ -20,17 +21,31 @@ export const Push: React.FC<IPush> = ({ notification }) => {
             message = 'warning'
     }
 
-    return (
-        <div className={ `pushNotification ${ classList.join(' ') || '' }`} > 
-            <div className="notificationMessage">
-                <span>
-                    { message + ': ' }
-                </span> 
-                <br/>
-                <div>
-                    { notification.message }
-                </div>
+    interface Content {
+        value: PlainStyle
+    }
+    const Content: React.FC<Content> = ({ value }) =>
+    
+    <div 
+        className={ `pushNotification ${ classList.join(' ') || '' }`} 
+        style={{ 
+            transform: `translateY(${ value.x }px)`,
+        }}
+    > 
+        <div className="notificationMessage">
+            <span>
+                { message + ': ' }
+            </span> 
+            <br/>
+            <div>
+                { notification.message }
             </div>
         </div>
+    </div>
+
+    return (
+        <Motion defaultStyle={{ x: -40 }} style={{ x: spring(0) }}>
+            { value => <Content value={ value } />  }
+        </Motion>
     )
 }

@@ -8,6 +8,7 @@
     "graphql": "^15.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-motion": "^0.5.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
@@ -22,14 +23,12 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-motion": "^0.0.29",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
     "chalk": "^4.0.0",
     "node-sass": "^4.14.0",
-    "progress-bar-webpack-plugin": "^2.1.0",
-    "typescript": "~3.7.2",
-    "webpack": "^4.43.0",
-    "webpack-bundle-analyzer": "^3.7.0"
+    "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
