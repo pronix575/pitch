@@ -60,7 +60,8 @@ export const userValidation: UserValidation = ( userName, email, password ) => {
         return { message: messages[messages.length - 1].message || 'server error' } 
     }
 
-    console.log(passwordValidation, usernameValidation)
+    if ( !emailValidation ) return { message: 'uncorrect email address' }
+
     return { message: 'server error' }
 }
 

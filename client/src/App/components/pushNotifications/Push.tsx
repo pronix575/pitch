@@ -26,10 +26,11 @@ export const Push: React.FC<IPush> = ({ notification }) => {
         case 'WARNING':
             classList.push('warningNotification')
             type = 'warning'
+            break;
         case 'SUCCESS':
             classList.push('successNotification')
             type = 'success'
-        default:
+            break;
     }
 
     interface Content {

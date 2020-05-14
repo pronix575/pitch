@@ -52,18 +52,26 @@ export const SignUpPage: React.FC = () => {
             }, 5000))
     
             if (res && res?.message === "success") {
-                console.log(res)
                 
                 dispatch(sendNewNotification({
                     type: 'SUCCESS',
                     message: 'user was created succesfully',
                     id: Date.now()
                 }))
-
+                
+                // it's very important for great UX ;)
                 setTimeout(() => {
                     dispatch(login(res.token))
                     dispatch(clearNotifications())
                 }, 1500)
+            }
+            
+            if (res && res?.message === "a user with such an email already exists") {
+                dispatch(sendNewNotification({
+                    type: 'WARNING',
+                    message: res.message,
+                    id: Date.now()
+                }))
             }
 
             if (!(res && res?.message === "success")) {

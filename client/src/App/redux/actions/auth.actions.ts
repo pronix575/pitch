@@ -13,7 +13,8 @@ const asyncAuth = async (dispatch: Dispatch, token: string) => {
                 dispatch({ type: LOGIN, payload: token })
             }
             
-            dispatch({ type: LOGIN, payload: {} })
+            dispatch({ type: LOGOUT })
+            localStorage.clear()
         } catch (e) {}
     }
 }

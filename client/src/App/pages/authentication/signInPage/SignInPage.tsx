@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom'
 import { Loader } from '../../../components/loaders/Loader'
 import { loginQuery } from '../../../graphql/queries'
 import { useDispatch } from 'react-redux'
-import { sendNewNotification } from '../../../redux/actions/notifications.action'
+import { sendNewNotification, clearNotifications } from '../../../redux/actions/notifications.action'
 import { ApolloCurrentQueryResult } from 'apollo-boost'
 import { login } from '../../../redux/actions/auth.actions'
 
@@ -38,7 +38,10 @@ export const SignInPage: React.FC = () => {
                 id: Date.now()
             }, 5000))
     
-            res && res?.message === "success" && dispatch(login(res?.token))
+            if (res && res?.message === "success") { 
+                dispatch(login(res?.token)) 
+                dispatch(clearNotifications()) 
+            }
 
         } catch (e) {
             dispatch(sendNewNotification({

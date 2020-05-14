@@ -3,7 +3,7 @@ import { NEW_NOTIFICATION, CLEAR_NOTIFICATIONS } from "../types";
 
 export const 
 
-sendNewNotification: newNotification = (notification, time) => dispatch => {
+sendNewNotification: newNotification = (notification) => dispatch => {
     
     const newNote: Notification = {
         id: Date.now(),

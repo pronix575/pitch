@@ -10,7 +10,7 @@ const initialState: { isAuth: boolean, token: string | null } = {
 const handlers: Handlers = {
     [LOGIN]: (state, { payload }) => ({ 
         ...state, isAuth: true, 
-        token: payload.token 
+        token: payload
     }),
     [LOGOUT]: (state) => ({ 
         ...state, 

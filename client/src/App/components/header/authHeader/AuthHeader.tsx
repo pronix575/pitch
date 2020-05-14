@@ -1,12 +1,11 @@
 import React from 'react'
-import './header.scss'
-import { Button } from '../../buttons/Button'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useLocation, NavLink } from 'react-router-dom'
 import { Flex } from '../../grid/Flex'
-import { SignInIcon } from '../../icons/SignInIcon'
 import { Range } from '../../grid/Range'
+import { Button } from '../../buttons/Button'
+import { SignInIcon } from '../../icons/SignInIcon'
 
-export const Header: React.FC = () => {
+export const AuthHeader: React.FC = () => {
 
     const  currentLocation = useLocation()
     let isRoot = currentLocation.pathname === '/'

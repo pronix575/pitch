@@ -18,12 +18,17 @@ export const loginResolver: LoginResolver = async (_, { email, password }) => {
 authentificationResolver: AuthentificationResolver = async (_, { token }) => {
     try {
         
-        const userId = jwt.decode(token)
+        const data: any = jwt.verify(
+            token,
+            config.get('jwtSecret')
+        )
+
+        const userId = data.id
         
         if (!userId) return { message: "uncorrect token" }
-
-        const user: any = User.findOne({ _id: userId })
-
+        
+        const user: any = await User.findOne({ _id: userId })
+        
         if (user) {
 
             return {

@@ -15,9 +15,10 @@ export const AppRouter: React.FC = () => {
         <div className="container">
             { isAuth ? 
                 <Switch>
-                    <Route path="/">
+                    <Route path="/" exact>
                         sdfsdfsf
                     </Route> 
+                    <Redirect to="/" />
                 </Switch> :
 
                 <Switch>

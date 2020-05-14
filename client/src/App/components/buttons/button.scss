@@ -5,7 +5,7 @@
     padding: 6px 16px;
     cursor: pointer;
     color: white;    
-    color: var(--base-color);
+    color: rgb(50, 50, 50);
     border-radius: 8px;
 
     border: none;
@@ -44,7 +44,6 @@
     // box-shadow: 0 3px 0 rgb(255, 178, 127);
     padding: 4px 14px;
     background: rgb(255, 255, 255);
-    color: var(--base-color);
     // box-shadow: var(--base-shadow);
     border: 2px solid var(--base-color);
 }
