@@ -21,17 +21,23 @@ type LoginResponse {
     message: String
 }
 
-type Query {
-    users(token: String!): [User!]
-    login(email: String!, password: String!): LoginResponse
-}
-
 type NewUser {
     user: User,
     message: String,
     token: String
 }
 
+type AuthentificationResponse {
+    token: String,
+    message: String
+}
+
+type Query {
+    users(token: String!): [User!],
+    login(email: String!, password: String!): LoginResponse!,
+    authentification(token: String!): AuthentificationResponse!
+}
+
 type Mutation {
-    createUser(userName: String!, email: String!, password: String!) : NewUser
+    createUser(userName: String!, email: String!, password: String!) : NewUser!
 }

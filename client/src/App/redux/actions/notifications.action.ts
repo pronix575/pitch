@@ -1,5 +1,5 @@
-import { newNotification, Notification } from "../../types";
-import { NEW_NOTIFICATION, REMOVE_NOTIFICATION } from "../types";
+import { newNotification, Notification, ClearNotifications } from "../../types";
+import { NEW_NOTIFICATION, CLEAR_NOTIFICATIONS } from "../types";
 
 export const 
 
@@ -15,12 +15,8 @@ sendNewNotification: newNotification = (notification, time) => dispatch => {
         type: NEW_NOTIFICATION, 
         payload: newNote
     })
+},
 
-
-    setTimeout(() => {
-        dispatch({
-            type: REMOVE_NOTIFICATION,
-            payload: newNote.id
-        })
-    }, time || 4000)
-}
+clearNotifications: ClearNotifications = () => dispatch => dispatch({
+    type: CLEAR_NOTIFICATIONS
+})

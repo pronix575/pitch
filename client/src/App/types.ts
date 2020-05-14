@@ -1,5 +1,5 @@
 import React, { FormEvent } from 'react'
-import { ApolloCurrentQueryResult } from 'apollo-boost'
+import { ApolloCurrentQueryResult, FetchResult } from 'apollo-boost'
 import { Dispatch } from 'redux'
 
 export type Action = {
@@ -22,7 +22,7 @@ export type InitialState = {
 export type Notification = {
     id: number,
     message: string,
-    type: 'ERROR' | 'WARNING'
+    type: 'ERROR' | 'WARNING' | 'SUCCESS'
 }
 
 export type SignInForm = {
@@ -43,7 +43,17 @@ export type SubmitEvent = FormEvent<HTMLInputElement>
 
 
 // GraphQL
-export type LoginQuery = (form: SignInForm) => Promise<ApolloCurrentQueryResult<LoginResponse>>
+export type LoginQuery = (form: SignInForm) => 
+    Promise<ApolloCurrentQueryResult<LoginResponse>>
+
+export type AuthentificationQuery = (token: string) => 
+    Promise<ApolloCurrentQueryResult<AuthentificationData>>
+
+export type CreateUserMutation<T> = (form: SignUpForm) => 
+    Promise<FetchResult<T, Record<string, any>, Record<string, any>>>
+
+// export type createUserMutation = () => Promise<>
+
 type Avatar = {
     url: string
 }
@@ -51,27 +61,49 @@ type Settings = {
     isDarkTheme: boolean
     avatar: Avatar
 }
-type User = {
-    userName: string,
-    email: string,
-    shortid: string,
-    settings: Settings
+
+type authentificationDataResponse = {
+    token: string,
+    message: string
+}
+export type AuthentificationData = {
+    authentification: authentificationDataResponse
+} 
+export type User = {
+    userName: string | null,
+    email: string | null,
+    shortid: string | null,
+    settings: Settings | null
 }
 type Login = {
     user: User,
     token: string,
     message: string
 }
+
+type SignUpData = {
+    user: User ,
+    message: string,
+    token: string
+}
 export type LoginResponse = { login: Login }
+export type SignUpResponse = { 
+    createUser: SignUpData
+}
+
 
 // actions
 
 type action = (dispatch: Dispatch) => any
 
-type Note = {
-    message: string,
-    type: 'ERROR' | 'WARNING'
-}
-
-export type newNotification = (notification: Note, time?: number) => action
+export type newNotification = (notification: Notification, time?: number) => action
+export type ClearNotifications = () => action
 export type LoginAction = (token: string) => action
+export type Authentification = () => action
+export type Logout = () => action
+
+// icons interface
+
+export interface Icon {
+    style?: React.CSSProperties
+}

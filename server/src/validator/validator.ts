@@ -1,17 +1,18 @@
 import validator from 'validator'
-import { UserValidation, LoginValidator } from '../types'
+import { UserValidation, LoginValidator, Message } from '../types'
 import { User } from '../models/User'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import config from 'config'
 
-type Message = {
-    message: string
-}
+export const isNormalPassword = (password: string): Message => {
 
-export const isNormalPassword = (password: string): boolean | Message => {
-    if (password.length > 6) {
-        return true
+    if (password.length > 25) {
+        return { message: 'name must be 25 characters or less' }
+    }
+
+    if (password.length >= 6) {
+        return { message: 'success' }
     } 
 
     return {
@@ -19,10 +20,14 @@ export const isNormalPassword = (password: string): boolean | Message => {
     }
 }
 
-export const isNormalUserName = (name: string): boolean | Message => {
+export const isNormalUserName = (name: string): Message => {
     
-    if (name.length < 3) {
-        return true
+    if (name.length > 25) {
+        return { message: 'name must be 25 characters or less' }
+    }
+
+    if (name.length > 3) {
+        return { message: 'success' }
     } 
 
     return {
@@ -35,21 +40,28 @@ export const isNormalEmail = (email: string): Message | boolean => {
 }
 
 export const userValidation: UserValidation = ( userName, email, password ) => {
+
     const emailValidation = validator.isEmail(email),
           passwordValidation = isNormalPassword(password),
           usernameValidation = isNormalUserName(userName)
     
-    if ( emailValidation && passwordValidation && usernameValidation ) {
-        return { message: 'successs' }
+    if ( emailValidation && passwordValidation.message === 'success' && usernameValidation.message === 'success' ) {
+        return { message: 'success' }
     }
 
-    const messages: Array<object> = []
+    if ( emailValidation && passwordValidation && usernameValidation ) {
 
-    if ( !emailValidation ) { messages.push({ message: "uncorrect email" }) }
-    if ( typeof passwordValidation !== 'boolean' ) { messages.push( passwordValidation ) }
-    if ( typeof usernameValidation !== 'boolean' ) { messages.push( usernameValidation ) }
+        const messages: Array<Message> = []
+    
+        if ( !emailValidation ) { messages.push({ message: "uncorrect email" }) }
+        if ( passwordValidation.message !== 'success' ) { messages.push( passwordValidation ) }
+        if ( usernameValidation.message !== 'success' ) { messages.push( usernameValidation ) }
 
-    return { messages } 
+        return { message: messages[messages.length - 1].message || 'server error' } 
+    }
+
+    console.log(passwordValidation, usernameValidation)
+    return { message: 'server error' }
 }
 
 export const loginValidator: LoginValidator = async (email, password) => { 
@@ -57,7 +69,7 @@ export const loginValidator: LoginValidator = async (email, password) => {
     if (!isNormalEmail(email)) { return { message: "uncorrect email" } }
 
     // I have no idea how to make it better
-    const user: any = await User.findOne({ email }, { _id: 0 })
+    const user: any = await User.findOne( { email }, { _id: 0 })
 
     if (!user) { return { message: "uncorrect password or email" } }
 

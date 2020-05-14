@@ -14,7 +14,7 @@
             animation-name: opacityAnimation;
             animation-duration: .5s;
             backdrop-filter: blur(3px);
-            max-width: 400px;
+            max-width: 370px;
             // min-width: 360px;
             width: 100%;
             z-index: 5;
@@ -28,18 +28,39 @@
             
             .notificationMessage {
                 span {
+                    z-index: 6;
+                    position: absolute;
+                    top: 8px; left: 8px;
+                    // transform: translateY(-100px);
+                    padding: 1px 8px;
+                    background: rgb(255, 255, 255);
+                    border-radius: 5px;
                     font-weight: lighter;
-                    color: rgba(255, 255, 255, 0.85);
+                    color: rgba(255, 0, 0, 0.864);
+                }
+
+                div {
+                    margin: 2px 0 0 0;
                 }
             }
         }
 
         .warningNotification {
-            background: rgba(255, 166, 0, 0.639);
+            span {
+                color: rgb(255, 166, 0)!important;
+            }
+            background: rgba(255, 166, 0, 0.762);
         }
 
         .errorNotification {
             background: rgba(255, 0, 0, 0.639);
+        }
+
+        .successNotification {
+            span {
+                color: rgba(0, 220, 70, 0.85)!important;
+            }
+            background: rgba(0, 220, 70, 0.85);
         }
     }
 }

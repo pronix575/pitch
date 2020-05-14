@@ -1,8 +1,10 @@
 import { gqlClient } from "./graphql"
-import { GQL_LOGIN } from "./schemea"
-import { LoginQuery } from "../types"
+import { GQL_LOGIN, AUTHENTIFICATION } from "./schema.graphql"
+import { LoginQuery, AuthentificationQuery, AuthentificationData } from "../types"
 
-export const loginQuery: LoginQuery = async (form) => {
+export const 
+
+loginQuery: LoginQuery = async (form) => {
 
     const data = await gqlClient.query({
 
@@ -15,4 +17,20 @@ export const loginQuery: LoginQuery = async (form) => {
     })
     
     return data
+},
+
+authentificationQuery: AuthentificationQuery = async (token) => {
+
+    const data = await gqlClient.query<AuthentificationData>({
+    
+        query: AUTHENTIFICATION,
+        variables: {
+            token
+        }
+    })    
+
+    return data
 }
+
+
+

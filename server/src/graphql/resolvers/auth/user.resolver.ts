@@ -20,7 +20,7 @@ export const getUsers: GetUsers = async (_, { token }) => {
 const createUser: CreateUser = async (userName, email, password) => {
     try {
         
-        const validation: any = userValidation(userName, email, password)
+        const validation = userValidation(userName, email, password)
 
         if ( validation.message === 'success' ) {
 
@@ -50,15 +50,20 @@ const createUser: CreateUser = async (userName, email, password) => {
                 { expiresIn: '24h' }
             )
 
-            return { user: newUser, message: 'success', token } || { message: "error in user creating process" } 
+
+            if (newUser) {
+                return { user: newUser, message: 'success', token }
+            }
+
+            return { message: "error in user creating process" } 
         }
 
         return validation
 
     } catch (e) {
 
-        console.error(e)
-        return { message: "fail" }
+        console.log(e)
+        return { message: "server error" }
     }
 }
 

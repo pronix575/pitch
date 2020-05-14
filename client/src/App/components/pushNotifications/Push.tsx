@@ -1,6 +1,11 @@
 import React from 'react'
 import { Notification } from '../../types'
 import { Motion, PlainStyle, spring } from 'react-motion'
+import { FlexEnd } from '../grid/FlexEnd'
+import { CloseIcon } from '../icons/CloseIcon'
+import { TouchView } from '../touchView/TouchView'
+import { useDispatch } from 'react-redux'
+import { clearNotifications } from '../../redux/actions/notifications.action'
 
 interface IPush {
     notification: Notification
@@ -8,17 +13,23 @@ interface IPush {
 
 export const Push: React.FC<IPush> = ({ notification }) => {
 
+    const dispatch = useDispatch()
+
     const classList: string[] = []
-    let message: 'warning' | 'error'
+    let type: 'warning' | 'error' | 'success'
 
     switch (notification.type) {
         case 'ERROR': 
             classList.push('errorNotification')
-            message = 'error'
+            type = 'error'
             break;
         case 'WARNING':
             classList.push('warningNotification')
-            message = 'warning'
+            type = 'warning'
+        case 'SUCCESS':
+            classList.push('successNotification')
+            type = 'success'
+        default:
     }
 
     interface Content {
@@ -33,18 +44,35 @@ export const Push: React.FC<IPush> = ({ notification }) => {
         }}
     > 
         <div className="notificationMessage">
-            <span>
-                { message + ': ' }
-            </span> 
-            <br/>
-            <div>
-                { notification.message }
-            </div>
+            <FlexEnd>
+                <div>
+                    <span>
+                        { type + ': ' }
+                    </span> 
+                    <br/>
+                    <div>
+                        { notification.message }
+                    </div>
+                </div>
+                
+                
+                <TouchView onClick={ () => dispatch(clearNotifications()) }>
+                    <CloseIcon style={{ 
+                        fontSize: "28px",
+                        margin: "3px 0 0 0" 
+                    }} />
+                </TouchView>
+            </FlexEnd>    
         </div>
     </div>
 
     return (
-        <Motion defaultStyle={{ x: -40 }} style={{ x: spring(0) }}>
+        <Motion 
+            defaultStyle={{ x: -40 }} 
+            style={{ 
+                x: spring(0, { damping: 10, }) 
+            }}
+        >
             { value => <Content value={ value } />  }
         </Motion>
     )

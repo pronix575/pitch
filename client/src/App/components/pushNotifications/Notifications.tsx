@@ -14,7 +14,7 @@ export const Notifications: React.FC = () => {
         <FlexBLock>
             {
                 notifications.map(
-                    (not: Notification) => 
+                    (not: Notification) =>
                         
                     <Push 
                         key={ not.id.toString() + Math.round((Math.random() * 10000000)).toString() } 

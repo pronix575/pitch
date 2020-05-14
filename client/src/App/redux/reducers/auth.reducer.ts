@@ -1,6 +1,6 @@
 import { Reducer, State, Action, Handlers } from "../../types"
 
-import { LOGIN, DEFAULT } from "../types"
+import { LOGIN, DEFAULT, LOGOUT } from "../types"
 
 const initialState: { isAuth: boolean, token: string | null } = {
     isAuth: false,
@@ -8,7 +8,15 @@ const initialState: { isAuth: boolean, token: string | null } = {
 }
 
 const handlers: Handlers = {
-    [LOGIN]: (state, { payload }) => ({ ...state, isAuth: true, token: payload.token }),
+    [LOGIN]: (state, { payload }) => ({ 
+        ...state, isAuth: true, 
+        token: payload.token 
+    }),
+    [LOGOUT]: (state) => ({ 
+        ...state, 
+        isAuth: false,
+        token: null 
+    }),
     [DEFAULT]: (state: State) => state 
 }
 

@@ -19,11 +19,20 @@ type Token = {
 }
 export type AuthMiddleware = (token: string) => object | false
 
+type CreateUserResponse = {
+    message: string | null,
+    user?: any,
+    token?: string | null
+}
 
-export type CreateUser = (userName: string, email: string, password: string) => object
+export type CreateUser = (userName: string, email: string, password: string) => Promise<CreateUserResponse>
 export type GetUsers = (_: any, token: Token) => Array<IUser> | any
 
-export type UserValidation = (userName: string, email: string, password: string) => object
+export type Message = {
+    message: string
+}
+
+export type UserValidation = (userName: string, email: string, password: string) => Message
 export type LoginValidator = (email: string, password: string) => object | Promise<any>
 
 type CreateUserData = {
@@ -43,5 +52,15 @@ type LoginResponse = {
     message: string
 }
 
+type AuthentificationResponse = {
+    message: string
+    token?: string
+}
+
+type AuthDataInit = {
+    token: string
+}
+
 export type CreateUserResolver = (_: any, data: CreateUserData) => object
 export type LoginResolver = (_: any, data: AuthData ) => Promise<LoginResponse>
+export type AuthentificationResolver = (_: any, data: AuthDataInit ) => Promise<AuthentificationResponse>

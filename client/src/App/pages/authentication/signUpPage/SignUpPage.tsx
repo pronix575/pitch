@@ -2,12 +2,19 @@ import React, { useState } from 'react'
 import './signUpPage.scss'
 import { Form } from '../../../components/forms/Form'
 import { Input } from '../../../components/inputs/Input'
-import { SignUpForm, ChangeEvent } from '../../../types'
+import { SignUpForm, ChangeEvent, SubmitEvent } from '../../../types'
 import { Button } from '../../../components/buttons/Button'
 import { NavLink } from 'react-router-dom'
 import { Flex } from '../../../components/grid/Flex'
+import { useDispatch } from 'react-redux'
+import { sendNewNotification, clearNotifications } from '../../../redux/actions/notifications.action'
+import { createUserMutation } from '../../../graphql/mutations'
+import { Loader } from '../../../components/loaders/Loader'
+import { login } from '../../../redux/actions/auth.actions'
 
 export const SignUpPage: React.FC = () => {
+
+    const dispatch = useDispatch()
 
     const [form, setForm] = useState<SignUpForm>({
         name: '',
@@ -15,7 +22,8 @@ export const SignUpPage: React.FC = () => {
         password: ''
     })
 
-    
+    const [loading, setLoading] = useState(false)
+
     const onChange = (event: ChangeEvent) => {
         
         event.persist()
@@ -26,11 +34,64 @@ export const SignUpPage: React.FC = () => {
             })
         )
     }
+
+    const onSumbit = async (event: SubmitEvent) => {
+        event.preventDefault()
+
+        setLoading(true)
+
+        try {
+            const { data } = await createUserMutation(form)
+            
+            const res = data?.createUser
+
+            res && res?.message !== "success" && dispatch(sendNewNotification({
+                message: res?.message || 'app error',
+                type: 'ERROR',
+                id: Date.now()
+            }, 5000))
+    
+            if (res && res?.message === "success") {
+                console.log(res)
+                
+                dispatch(sendNewNotification({
+                    type: 'SUCCESS',
+                    message: 'user was created succesfully',
+                    id: Date.now()
+                }))
+
+                setTimeout(() => {
+                    dispatch(login(res.token))
+                    dispatch(clearNotifications())
+                }, 1500)
+            }
+
+            if (!(res && res?.message === "success")) {
+                setLoading(false)
+            }
+            
+
+        } catch (e) {
+            dispatch(sendNewNotification({
+                id: Date.now(),
+                message: "connection failed",
+                type: "ERROR"
+            }))
+
+            setLoading(false)
+        }
+
+        setForm({
+            name: '',
+            email: '',
+            password: ''
+        })
+    }
     
     return (
         <Flex className="signUpPage h8 w100">
-            <div className="w100">
-                <Form styles={{ paddig: "10px" }}>
+            <div className="w100 p1h">
+                <Form styles={{ paddig: "10px" }} onSubmit={ onSumbit }>
                     
                     <h2 style={{ margin: "2px 0 10px 0" }}>
                         Registration
@@ -63,13 +124,22 @@ export const SignUpPage: React.FC = () => {
                         placeholder="password"
                     />
 
-                    <Button>create accaunt</Button>
+                    <Button>
+                        { loading ?
+                                <Loader 
+                                    color={ "white" } 
+                                    containerStyles={{ transform: "translateY(-6px)" }} 
+                                /> 
+                            :
+                            "create accaunt"
+                        }
+                    </Button>
                 </Form>
 
                 <Flex className="w100 flex">
                     <div className="minilink flex">
                         <NavLink to="/sign-in" style={{ color: "rgb(171, 171, 171)" }}>
-                        already have an account?
+                            already have an account?
                         </NavLink>
                     </div>
                 </Flex>
