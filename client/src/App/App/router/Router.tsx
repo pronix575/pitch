@@ -5,6 +5,7 @@ import { InitialState } from '../../types'
 import { StartPage } from '../../pages/startPage/StartPage'
 import { SignUpPage } from '../../pages/authentication/signUpPage/SignUpPage'
 import { SignInPage } from '../../pages/authentication/signInPage/SignInPage'
+import { FeedPage } from '../../pages/feedPage/FeedPage'
 
 export const AppRouter: React.FC = () => {
 
@@ -15,10 +16,10 @@ export const AppRouter: React.FC = () => {
         <div className="container">
             { isAuth ? 
                 <Switch>
-                    <Route path="/" exact>
-                        sdfsdfsf
+                    <Route path="/feed" exact>
+                        <FeedPage />
                     </Route> 
-                    <Redirect to="/" />
+                    <Redirect to="/feed" />
                 </Switch> :
 
                 <Switch>

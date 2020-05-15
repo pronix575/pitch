@@ -7,7 +7,6 @@ import { Notifications } from '../components/pushNotifications/Notifications'
 import { useDispatch } from 'react-redux'
 import { authentification } from '../redux/actions/auth.actions'
 import { PageLoader } from '../components/loaders/pageLoader/PageLoader'
-import { turnOnLoading } from '../redux/actions/app.action'
 
 const App: React.FC = () => {  
 

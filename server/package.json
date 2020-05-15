@@ -8,7 +8,7 @@
     "dev-wp": "cross-env NODE_ENV=development webpack --config webpack.start.js",
     "dev-serve": "nodemon dist/index.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.start.js",
-    "start": "node dist/index",
+    "start": "cross-env NODE_ENV=production node dist/index",
     "test": "jest"
   },
   "jest": {
