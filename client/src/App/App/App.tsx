@@ -6,6 +6,8 @@ import { Header } from '../components/header/Header'
 import { Notifications } from '../components/pushNotifications/Notifications'
 import { useDispatch } from 'react-redux'
 import { authentification } from '../redux/actions/auth.actions'
+import { PageLoader } from '../components/loaders/pageLoader/PageLoader'
+import { turnOnLoading } from '../redux/actions/app.action'
 
 const App: React.FC = () => {  
 
@@ -17,6 +19,7 @@ const App: React.FC = () => {
 
   return (
     <>
+      <PageLoader />
       <Notifications />
       <Router>
         <Header />

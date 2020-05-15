@@ -1,6 +1,6 @@
 import React from 'react'
 import './loader.scss'
-import { Flex } from '../grid/Flex'
+import { Flex } from '../../grid/Flex'
 
 interface ILoader {
     styles?: React.CSSProperties

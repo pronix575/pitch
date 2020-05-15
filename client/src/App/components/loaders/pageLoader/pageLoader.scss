@@ -1,0 +1,20 @@
+.pageLoader {
+    z-index: 100;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background: white;
+
+    // height: 60px;
+    // width: 60px;
+    div {
+        margin: 0!important; 
+        transform: translateY(-600px)!important;
+        transform: translateX(-11px)!important;
+    }
+
+    .lds-ring {
+        height: 130px;
+    }
+}
+

@@ -9,7 +9,7 @@ import { Flex } from '../../../components/grid/Flex'
 import { useDispatch } from 'react-redux'
 import { sendNewNotification, clearNotifications } from '../../../redux/actions/notifications.action'
 import { createUserMutation } from '../../../graphql/mutations'
-import { Loader } from '../../../components/loaders/Loader'
+import { Loader } from '../../../components/loaders/baseLoader/Loader'
 import { login } from '../../../redux/actions/auth.actions'
 
 export const SignUpPage: React.FC = () => {

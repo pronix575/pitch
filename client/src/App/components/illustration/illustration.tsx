@@ -3,7 +3,7 @@ import './illustration.scss'
 
 interface IIllustration {
     src: string,
-    styles?: {},
+    styles?: React.CSSProperties,
     classList?: Array<string>
 }
 

@@ -1,6 +1,7 @@
 import React, { FormEvent } from 'react'
 import { ApolloCurrentQueryResult, FetchResult } from 'apollo-boost'
 import { Dispatch } from 'redux'
+import { access } from 'fs'
 
 export type Action = {
     type: string,
@@ -101,6 +102,8 @@ export type ClearNotifications = () => action
 export type LoginAction = (token: string) => action
 export type Authentification = () => action
 export type Logout = () => action
+export type TurnOnLoading = () => action
+export type TurnOffLoading = () => action
 
 // icons interface
 

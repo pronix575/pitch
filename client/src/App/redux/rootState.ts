@@ -5,5 +5,8 @@ export type RootState = {
     },
     notifications: {
         notifications: Array<Notification>
+    },
+    app: {
+        isLoading: boolean
     }
 }
