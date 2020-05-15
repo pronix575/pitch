@@ -70,7 +70,7 @@ export const loginValidator: LoginValidator = async (email, password) => {
     if (!isNormalEmail(email)) { return { message: "uncorrect email" } }
 
     // I have no idea how to make it better
-    const user: any = await User.findOne( { email }, { _id: 0 })
+    const user: any = await User.findOne( { email })
 
     if (!user) { return { message: "uncorrect password or email" } }
 

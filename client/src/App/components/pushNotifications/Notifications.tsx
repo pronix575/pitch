@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { Notification } from '../../types'
 import { Push } from './Push'
 import './notifications.scss'
-import { Motion } from 'react-motion'
 import { FlexBLock } from '../grid/FlexBlock'
 
 export const Notifications: React.FC = () => {

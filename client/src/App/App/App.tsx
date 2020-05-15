@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.scss'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { AppRouter } from './router/Router'
@@ -10,7 +10,10 @@ import { authentification } from '../redux/actions/auth.actions'
 const App: React.FC = () => {  
 
   const dispatch = useDispatch()
-  dispatch(authentification())
+  
+  useEffect(() => {  
+    dispatch(authentification())
+  }, [dispatch])
 
   return (
     <>

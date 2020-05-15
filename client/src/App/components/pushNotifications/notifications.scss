@@ -24,7 +24,7 @@
             background: rgb(22, 22, 22);
             color: white;
             font-weight: bold;
-            // box-shadow: var(--base-shadow);
+            box-shadow: 0 5px 15px rgb(255, 217, 168);
             
             .notificationMessage {
                 span {
@@ -46,6 +46,7 @@
         }
 
         .warningNotification {
+            box-shadow: 0 5px 15px rgb(255, 217, 168);
             span {
                 color: rgb(255, 166, 0)!important;
             }
@@ -53,10 +54,12 @@
         }
 
         .errorNotification {
+            box-shadow: 0 5px 15px rgb(255, 168, 168);
             background: rgba(255, 0, 0, 0.639);
         }
 
         .successNotification {
+            box-shadow: 0 5px 15px rgb(178, 255, 157);
             span {
                 color: rgba(0, 220, 70, 0.85)!important;
             }

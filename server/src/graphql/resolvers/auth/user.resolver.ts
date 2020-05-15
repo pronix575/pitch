@@ -40,16 +40,15 @@ const createUser: CreateUser = async (userName, email, password) => {
             const user = new User({ userName, shortid: newShortid, email, password: hashedPassword, settings })                                                                                                                                                                                                                                                     
             user.save()
 
-            const newUser = await User.findOne({ shortid: shortid }, { _id: 0, password: 0 }) || {  
+            const newUser = {  
                 userName, email, shortid, settings
             }
 
             const token = jwt.sign(
-                { id: user.id },
+                { id: user._id },
                 config.get('jwtSecret'),
                 { expiresIn: '24h' }
             )
-
 
             if (newUser) {
                 return { user: newUser, message: 'success', token }

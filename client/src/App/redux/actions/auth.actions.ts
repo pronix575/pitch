@@ -10,11 +10,13 @@ const asyncAuth = async (dispatch: Dispatch, token: string) => {
             const { data } = await authentificationQuery(token)
 
             if (data?.authentification.message === 'success' && data?.authentification?.token) {
-                dispatch({ type: LOGIN, payload: token })
+                dispatch({ type: LOGIN, payload: data?.authentification?.token })
             }
             
-            dispatch({ type: LOGOUT })
-            localStorage.clear()
+            if (data?.authentification.message !== 'success') {
+                dispatch({ type: LOGOUT })
+                localStorage.clear()
+            }
         } catch (e) {}
     }
 }
@@ -33,4 +35,7 @@ authentification: Authentification = () => dispatch => {
     token && asyncAuth(dispatch, token)
 },
 
-logout: Logout = () => dispatch => dispatch({ type: LOGOUT }) 
+logout: Logout = () => dispatch => { 
+    dispatch({ type: LOGOUT }) 
+    localStorage.clear()
+} 
