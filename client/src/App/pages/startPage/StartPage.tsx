@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Illustration } from '../../components/illustration/illustration'
 import illustration from '../../../assets/images/startPageImg.jpg'
 import './startPage.scss'

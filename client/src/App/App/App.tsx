@@ -12,6 +12,7 @@ const App: React.FC = () => {
 
   const dispatch = useDispatch()
   
+  // initial authentification
   useEffect(() => {  
     dispatch(authentification())
   }, [dispatch])

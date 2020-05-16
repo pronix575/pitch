@@ -6,6 +6,8 @@ import { StartPage } from '../../pages/startPage/StartPage'
 import { SignUpPage } from '../../pages/authentication/signUpPage/SignUpPage'
 import { SignInPage } from '../../pages/authentication/signInPage/SignInPage'
 import { FeedPage } from '../../pages/feedPage/FeedPage'
+import { GridContainer } from '../../components/grid/GridContainer'
+import { LeftNavMenu } from '../../components/navigation/leftDesktopNavMenu/LeftDesktopNavMenu'
 
 export const AppRouter: React.FC = () => {
 
@@ -14,13 +16,23 @@ export const AppRouter: React.FC = () => {
     return (
       <div className="App flex">
         <div className="container">
+            
             { isAuth ? 
-                <Switch>
-                    <Route path="/feed" exact>
-                        <FeedPage />
-                    </Route> 
-                    <Redirect to="/feed" />
-                </Switch> :
+                <GridContainer styles={{ gridTemplateColumns: "20% 80%" }} className="baseAppGridContainer">
+                    <LeftNavMenu />
+                    <Switch>
+                        <Route path="/feed" exact>
+                            <FeedPage />
+                        </Route> 
+
+                        <Route path="/profile" exact>
+                            progile
+                        </Route> 
+                        {/* <Redirect to="/feed" /> */}
+                    </Switch> 
+                </GridContainer>
+                
+                :
 
                 <Switch>
                     <Route path="/sign-in">
@@ -37,6 +49,7 @@ export const AppRouter: React.FC = () => {
                     
                     <Redirect to="/" />
                 </Switch>
+
             }
         </div>    
     </div>

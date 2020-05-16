@@ -3,9 +3,8 @@ import './pageLoader.scss'
 import { Loader } from '../baseLoader/Loader'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootState'
-import { Illustration } from '../../illustration/illustration'
-import illustration from '../../../../assets/images/logo.png'
 import { Flex } from '../../grid/Flex'
+import { Logo } from '../../logo/Logo'
 
 export const PageLoader: React.FC = () => {
 
@@ -16,13 +15,18 @@ export const PageLoader: React.FC = () => {
             { isLoading &&
                 <div className="pageLoader flex">
                     <div>
-                        <Illustration 
+                        {/* <Illustration 
                             src={ illustration }
                             styles={{ 
                                 maxWidth: "40px",
                                 transform: "translateY(62px) translateX(25px)",
                             }} 
                             classList={["flex"]} 
+                        /> */}
+                        <Logo 
+                            styles={{ 
+                                transform: "translateX(14px) translateY(58px)",
+                            }} 
                         />
                         <Flex>
                             <Loader 

@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { sendNewNotification, clearNotifications } from '../../../redux/actions/notifications.action'
 import { ApolloCurrentQueryResult } from 'apollo-boost'
 import { login } from '../../../redux/actions/auth.actions'
+import { turnOnLoading, turnOffLoading } from '../../../redux/actions/app.action'
 
 export const SignInPage: React.FC = () => {
 
@@ -31,14 +32,22 @@ export const SignInPage: React.FC = () => {
         try {
             const { data }: ApolloCurrentQueryResult<LoginResponse> = await loginQuery(form)
             const res = data?.login
-    
-            res && res?.message !== "success" && dispatch(sendNewNotification({
-                message: res?.message || 'app error',
-                type: 'ERROR',
-                id: Date.now()
-            }, 5000))
-    
-            if (res && res?.message === "success") { 
+            
+            // login faild
+            if (res && res?.message !== "success") { 
+                dispatch(sendNewNotification({
+                    message: res?.message || 'app error',
+                    type: 'ERROR',
+                    id: Date.now()
+                })) 
+            }
+            
+            // success login process
+            if (res && res?.message === "success") {
+                dispatch(turnOnLoading())
+                setTimeout(() => {
+                    dispatch(turnOffLoading())
+                }, 400) 
                 dispatch(login(res?.token)) 
                 dispatch(clearNotifications()) 
             }
@@ -50,8 +59,6 @@ export const SignInPage: React.FC = () => {
                 type: "ERROR"
             }))
         }
-
-        setLoading(false)
     }   
 
     const onChange = async (event: ChangeEvent) => {

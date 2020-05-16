@@ -1,5 +1,5 @@
-import { LoginAction, Authentification, Logout } from "../../types";
-import { LOGIN, LOGOUT, TURN_ON_LOADING, TURN_OFF_LOADING } from "../types";
+import { LoginAction, Authentification, Logout, Notification } from "../../types";
+import { LOGIN, LOGOUT, TURN_ON_LOADING, TURN_OFF_LOADING, NEW_NOTIFICATION } from "../types";
 import { authentificationQuery } from "../../graphql/queries";
 import { Dispatch } from "redux";
 
@@ -9,8 +9,10 @@ const asyncAuth = async (dispatch: Dispatch, token: string) => {
         try {
             const { data } = await authentificationQuery(token)
 
+
             if (data?.authentification.message === 'success' && data?.authentification?.token) {
                 dispatch({ type: LOGIN, payload: data?.authentification?.token })
+                localStorage.setItem("token", data?.authentification?.token)
             }
             
             if (data?.authentification.message !== 'success') {
@@ -18,7 +20,16 @@ const asyncAuth = async (dispatch: Dispatch, token: string) => {
                 localStorage.clear()
             }
 
-        } catch (e) {}
+        } catch (e) {
+
+            const newNote: Notification = {
+                id: Date.now(),
+                message: 'connection faild',
+                type: 'WARNING'
+            }
+
+            dispatch({ type: NEW_NOTIFICATION, payload: newNote })
+        }
     }
 
     setTimeout(() => {
@@ -45,7 +56,9 @@ authentification: Authentification = () => dispatch => {
     }, 400)
 },
 
-logout: Logout = () => dispatch => { 
-    dispatch({ type: LOGOUT }) 
+logout: Logout = () => dispatch => {
     localStorage.clear()
+    dispatch({ type: LOGOUT }) 
+    dispatch({ type: TURN_ON_LOADING })
+    window.location.reload();
 } 

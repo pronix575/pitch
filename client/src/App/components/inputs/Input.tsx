@@ -1,6 +1,7 @@
 import React from 'react'
 import './input.scss'
 import { ChangeEvent } from '../../types'
+import { getRandomId } from '../../scripts/scripts'
 
 interface IInput {
     placeholder?: string
@@ -25,7 +26,7 @@ export const Input: React.FC<IInput> = ({
     <input
         name={ name }
         type={ type || '' } 
-        id={ id || '' }
+        id={ id || getRandomId() }
         className="input" 
         placeholder={ placeholder || '' } 
         value={ value || '' } 

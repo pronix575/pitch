@@ -1,7 +1,6 @@
 import React, { FormEvent } from 'react'
 import { ApolloCurrentQueryResult, FetchResult } from 'apollo-boost'
 import { Dispatch } from 'redux'
-import { access } from 'fs'
 
 export type Action = {
     type: string,
@@ -67,15 +66,18 @@ type authentificationDataResponse = {
     token: string,
     message: string
 }
+
 export type AuthentificationData = {
     authentification: authentificationDataResponse
-} 
+}
+
 export type User = {
     userName: string | null,
     email: string | null,
     shortid: string | null,
     settings: Settings | null
 }
+
 type Login = {
     user: User,
     token: string,
@@ -87,6 +89,7 @@ type SignUpData = {
     message: string,
     token: string
 }
+
 export type LoginResponse = { login: Login }
 export type SignUpResponse = { 
     createUser: SignUpData

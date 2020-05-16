@@ -1,0 +1,14 @@
+.gridContainer {
+    display: grid;
+}
+
+@media screen and (max-width: 500px) {
+
+    .baseAppGridContainer {
+        grid-template-columns: 100%!important;
+
+        .leftNavMeny {
+            display: none;
+        }
+    }
+}
