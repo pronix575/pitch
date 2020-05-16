@@ -63,7 +63,7 @@ export const SignUpPage: React.FC = () => {
                 setTimeout(() => {
                     dispatch(login(res.token))
                     dispatch(clearNotifications())
-                }, 1500)
+                }, 1000)
             }
             
             if (res && res?.message === "a user with such an email already exists") {
@@ -72,28 +72,23 @@ export const SignUpPage: React.FC = () => {
                     message: res.message,
                     id: Date.now()
                 }))
-            }
 
-            if (!(res && res?.message === "success")) {
-                setLoading(false)
+                setForm({
+                    name: form.name,
+                    email: '',
+                    password: ''
+                })
             }
             
-
         } catch (e) {
             dispatch(sendNewNotification({
                 id: Date.now(),
                 message: "connection failed",
                 type: "ERROR"
             }))
-
-            setLoading(false)
         }
 
-        setForm({
-            name: '',
-            email: '',
-            password: ''
-        })
+        setLoading(false)
     }
     
     return (

@@ -1,6 +1,6 @@
 {
     "port": 1000,
-    "mongoUrl": "'mongodb://localhost:27017/graphql",
-    "jwtSecret": "sdfshdfdufhdsfhsfdsfhskfhskf",
+    "mongoUrl": "mongodb+srv://admin:YpEihGxH5OolT9Ux@cluster0-aqidc.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "oH17172hKwILYpEihGxH5OolT9Ux874yrbdsf7ys87w90ryvsd87rdyvXvbL",
     "baseUrl": "http://localhost:1000"
 }

@@ -32,9 +32,7 @@ const asyncAuth = async (dispatch: Dispatch, token: string) => {
         }
     }
 
-    setTimeout(() => {
-        dispatch({ type: TURN_OFF_LOADING })
-    }, 400)
+    dispatch({ type: TURN_OFF_LOADING })
 }
 
 export const
@@ -51,14 +49,12 @@ authentification: Authentification = () => dispatch => {
     
     token && asyncAuth(dispatch, token)
     
-    !token && setTimeout(() => {
-        dispatch({ type: TURN_OFF_LOADING })
-    }, 400)
+    !token && dispatch({ type: TURN_OFF_LOADING })
 },
 
 logout: Logout = () => dispatch => {
     localStorage.clear()
-    dispatch({ type: LOGOUT }) 
     dispatch({ type: TURN_ON_LOADING })
+    dispatch({ type: LOGOUT }) 
     window.location.reload();
 } 

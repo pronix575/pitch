@@ -39,7 +39,13 @@ export const SignInPage: React.FC = () => {
                     message: res?.message || 'app error',
                     type: 'ERROR',
                     id: Date.now()
-                })) 
+                }))
+                
+                setForm({
+                    email: form.email,
+                    password: ''
+                })
+                setLoading(false)
             }
             
             // success login process
@@ -49,7 +55,7 @@ export const SignInPage: React.FC = () => {
                     dispatch(turnOffLoading())
                 }, 400) 
                 dispatch(login(res?.token)) 
-                dispatch(clearNotifications()) 
+                dispatch(clearNotifications())
             }
 
         } catch (e) {
@@ -58,6 +64,12 @@ export const SignInPage: React.FC = () => {
                 message: "connection failed",
                 type: "ERROR"
             }))
+
+            setForm({
+                email: form.email,
+                password: ''
+            })
+            setLoading(false)
         }
     }   
 

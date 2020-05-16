@@ -12,7 +12,6 @@ type User {
     userName: String,
     email: String,
     settings: Settings,
-    password: String
 }
 
 type LoginResponse {
