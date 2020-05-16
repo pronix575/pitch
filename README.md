@@ -5,7 +5,7 @@ yarn setup
 
 # or
 
-npm tun setup
+npm run setup
 ```
 ### build
 ```
