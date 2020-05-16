@@ -5,10 +5,19 @@ import { userValidation } from "../../../validator/validator"
 import shortid from 'shortid'
 import jwt from 'jsonwebtoken'
 import config from 'config'
+import { authMiddleware } from "../../middlewares"
 
 export const getUsers: GetUsers = async (_, { token }) => {
+
+    const userid = authMiddleware(token)
+
+    if (!userid) {
+        return { message: "you have no permition for that" }
+    }
+
     try {
-        const users = await User.find({}, { _id: 0, password: 0 }) || []           
+
+        const users = await User.find({}, { _id: 0, password: 0 })         
         return users
             
     } catch (e) {
@@ -33,7 +42,7 @@ const createUser: CreateUser = async (userName, email, password) => {
             }
 
             const candidate = await User.findOne({ email })
-
+                
             // user checking
             if (candidate) { return { message: "a user with such an email already exists" } }
 
@@ -69,7 +78,7 @@ const createUser: CreateUser = async (userName, email, password) => {
 export const createUserResolver: CreateUserResolver = async (_: any, { userName, email, password }) => {
             
     if (userName && email && password) {
-        const response = createUser(userName, email, password)
+        const response = await createUser(userName, email, password)
 
         if (response) { 
             return response

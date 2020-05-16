@@ -6,12 +6,13 @@ import bodyParser from 'body-parser'
 import pino from 'pino'
 // import expressPino from 'express-pino-logger'
 import path from 'path'
+import { User } from './models/User'
 
-const logger = pino({ level: process.env.LOG_lEVEL || 'info' })
+// const logger = pino({ level: process.env.LOG_lEVEL || 'info' })
 // const expressLogger = expressPino({ logger }) 
 
 const production: boolean = process.env.NODE_ENV == "production",
-      PORT: number = config.get('port') || (( production ) ? 80 : 1000 )
+      PORT: number = config.get('port') || (( production ) ? 8080 : 1000 )
 
 const app = express()
 app.use(bodyParser())
@@ -30,15 +31,20 @@ if (production) {
     })
 }
 
+
+
 server.applyMiddleware({ app })
 
 const start = async () => {
     try {
-        await mongoose.connect( config.get('mongoUrl'), {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-        })
+        await mongoose.connect( 
+            config.get('mongoUrl'), 
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useCreateIndex: true
+            }
+        )
 
         app.listen(PORT, (): void => {
             console.log(`Server ready at port ${ PORT }${ !production && ", http://localhost:" + PORT || '' }`)

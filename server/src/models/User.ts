@@ -1,9 +1,9 @@
-import { Schema, Types, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
 const userSchema = new Schema({
     userName: {
         type: String,
-        required: true  
+        required: true 
     },
     shortid: {
         type: String,
@@ -25,21 +25,6 @@ const userSchema = new Schema({
             type: Boolean,
             required: true
         }
-    },
-    friends: [{
-        type: Types.ObjectId,
-        ref: 'User'
-    }],
-    requests: {
-        incoming: [{
-            type: Types.ObjectId,
-            ref: 'User'
-        }],
-
-        from: [{
-            type: Types.ObjectId,
-            ref: 'User'
-        }]
     }
 })
  

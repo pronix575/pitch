@@ -8,7 +8,7 @@ export const loginResolver: LoginResolver = async (_, { email, password }) => {
     try {
 
         const res: any = await loginValidator(email, password)
-        return res 
+        return res
 
     } catch (e) {
         return { message: "server error" }
