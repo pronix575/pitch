@@ -32,5 +32,4 @@ authentificationQuery: AuthentificationQuery = async (token) => {
     return data
 }
 
-
-
+"Тут был рамазан"
