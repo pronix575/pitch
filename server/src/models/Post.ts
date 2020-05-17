@@ -1,4 +1,21 @@
-import { Schema, model, isValidObjectId, Types } from 'mongoose'
+import { Schema, model, Types, Document } from 'mongoose'
+
+interface IPost extends Document {
+    shortid: string
+    text: string
+    views: number
+    linkes: Array<{
+        creator: string
+        createdDate: Date
+    }> 
+    creator: string
+    createdData: Date
+    media: Array<{
+        mediaType: string
+        url: string
+    }>
+    storm: string
+}
 
 const postSchema = new Schema({
     shortid: {
@@ -44,4 +61,4 @@ const postSchema = new Schema({
     }]
 })
  
-export const Post = model('Post', postSchema)
+export const Post = model<IPost>('Post', postSchema)

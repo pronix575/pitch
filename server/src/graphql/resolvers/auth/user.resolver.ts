@@ -12,17 +12,20 @@ export const getUsers: GetUsers = async (_, { token }) => {
     const userid = authMiddleware(token)
 
     if (!userid) {
-        return { message: "you have no permition for that" }
+        return { message: "you don't have permission for this" }
     }
 
     try {
 
         const users = await User.find({}, { _id: 0, password: 0 })         
-        return users
+        return { 
+            users,
+            message: 'success'
+        }
             
     } catch (e) {
         console.error(e)
-        return []
+        return { message: "server error" }
     }
 }
 
@@ -35,23 +38,21 @@ const createUser: CreateUser = async (userName, email, password) => {
 
             const hashedPassword = await bcrypt.hash(password, 12)
             const newShortid = shortid.generate()
-            
-            const settings = {
-                avatar: { url: '' },
-                isDarkTheme: true
-            }
 
             const candidate = await User.findOne({ email })
                 
             // user checking
             if (candidate) { return { message: "a user with such an email already exists" } }
 
-            const user = new User({ userName, shortid: newShortid, email, password: hashedPassword, settings })                                                                                                                                                                                                                                                     
+            const user = new User({ 
+                userName, 
+                shortid: newShortid, 
+                email, 
+                password: hashedPassword, 
+                avatar: '', 
+                createdDate: new Date() 
+            })                                                                                                                                                                                                                                                     
             user.save()
-
-            const newUser = {  
-                userName, email, shortid, settings
-            }
 
             const token = jwt.sign(
                 { id: user._id },
@@ -59,11 +60,7 @@ const createUser: CreateUser = async (userName, email, password) => {
                 { expiresIn: '24h' }
             )
 
-            if (newUser) {
-                return { user: newUser, message: 'success', token }
-            }
-
-            return { message: "error in user creating process" } 
+            return { message: 'success', token }
         }
 
         return validation

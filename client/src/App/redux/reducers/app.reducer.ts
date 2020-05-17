@@ -3,7 +3,7 @@ import { Reducer, State, Action, Handlers } from "../../types"
 import { DEFAULT, TURN_ON_LOADING, TURN_OFF_LOADING } from "../types"
 
 const initialState: { isLoading: boolean } = {
-    isLoading: false
+    isLoading: true
 }
 
 const handlers: Handlers = {

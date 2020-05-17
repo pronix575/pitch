@@ -2,22 +2,13 @@ import express from 'express'
 import config from 'config'
 import mongoose from 'mongoose'
 import { server } from './graphql/core'
-import bodyParser from 'body-parser'
-import pino from 'pino'
-// import expressPino from 'express-pino-logger'
 import path from 'path'
-import { User } from './models/User'
-
-// const logger = pino({ level: process.env.LOG_lEVEL || 'info' })
-// const expressLogger = expressPino({ logger }) 
 
 const production: boolean = process.env.NODE_ENV == "production",
       PORT: number = config.get('port') || (( production ) ? 8080 : 1000 )
 
 const app = express()
-app.use(bodyParser())
 
-// production && app.use(expressLogger)
 
 //static
 app.use(express.static('files'));
@@ -30,8 +21,6 @@ if (production) {
         res.sendFile(path.resolve('../client/build/index.html'))
     })
 }
-
-
 
 server.applyMiddleware({ app })
 

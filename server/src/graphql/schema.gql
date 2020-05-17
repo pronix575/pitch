@@ -1,29 +1,14 @@
-type Avatar {
-    url: String
-}
-
-type Settings {
-    avatar: Avatar
-    isDarkTheme: Boolean
-}
-
 type User {
     shortid: String,
     userName: String,
     email: String,
-    settings: Settings,
+    avatar: String,
+    createdDate: String
 }
 
 type LoginResponse {
-    user: User,
     token: String,
     message: String
-}
-
-type NewUser {
-    user: User,
-    message: String,
-    token: String
 }
 
 type AuthentificationResponse {
@@ -31,12 +16,22 @@ type AuthentificationResponse {
     message: String
 }
 
+type CreateUserResponse {
+    message: String,
+    token: String
+}
+
+type AllUsersResponse {
+    users: [User!]
+    message: String
+}
+
 type Query {
-    users(token: String!): [User!],
+    users(token: String!): AllUsersResponse,
     login(email: String!, password: String!): LoginResponse!,
     authentification(token: String!): AuthentificationResponse!
 }
 
 type Mutation {
-    createUser(userName: String!, email: String!, password: String!) : NewUser!
+    createUser(userName: String!, email: String!, password: String!) : CreateUserResponse!
 }

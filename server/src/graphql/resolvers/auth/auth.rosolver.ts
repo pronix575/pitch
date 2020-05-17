@@ -22,7 +22,7 @@ authentificationResolver: AuthentificationResolver = async (_, { token }) => {
         
         if (!userId) return { message: "uncorrect token" }
         
-        const user: any = await User.findOne({ _id: userId })
+        const user = await User.findOne({ _id: userId })
         
         if (user) {
 
