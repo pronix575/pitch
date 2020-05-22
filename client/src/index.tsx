@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App/App/App'
+import App from './App/view/App/App'
 import * as serviceWorker from './serviceWorker'
 
 import { createStore, compose, applyMiddleware, Store } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import { rootReducer } from './App/redux/root.reducer'
+import { rootReducer } from './App/data/redux/root.reducer'
 
 import { ApolloProvider } from '@apollo/react-hooks';
-import { gqlClient } from './App/graphql/graphql'
+import { gqlClient } from './App/data/graphql/graphql'
 
 declare global {
   interface Window {

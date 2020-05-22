@@ -12,6 +12,10 @@ module.exports = {
         test: /\.gql?$/,
         exclude: /node_modules/, 
         loader: 'string-loader' 
+      },
+      {
+        test: /\.worker\.ts$/,
+        use: { loader: 'worker-loader' }
       }
     ]
   },

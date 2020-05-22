@@ -16,7 +16,9 @@ export const loginResolver: LoginResolver = async (_, { email, password }) => {
 },
 
 authentificationResolver: AuthentificationResolver = async (_, { token }) => {
+    
     try {
+
         const data: any = jwt.verify(token, config.get("jwtSecret"))
         const userId = data.id
         
@@ -39,6 +41,7 @@ authentificationResolver: AuthentificationResolver = async (_, { token }) => {
         return { message: 'uncorrect data' }
 
     } catch (e) {
+        console.log(e)
         return { message: 'server error' }
     }
 }

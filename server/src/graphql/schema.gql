@@ -26,10 +26,16 @@ type AllUsersResponse {
     message: String
 }
 
+type UserDataResponse {
+    user: User
+    message: String
+}
+
 type Query {
     users(token: String!): AllUsersResponse,
     login(email: String!, password: String!): LoginResponse!,
-    authentification(token: String!): AuthentificationResponse!
+    authentification(token: String!): AuthentificationResponse!,
+    userData(token: String!): UserDataResponse!
 }
 
 type Mutation {

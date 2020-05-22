@@ -9,3 +9,4 @@ const chatSchema = new Schema({
 })
  
 export const Chat = model<IChat>('Chat', chatSchema)
+

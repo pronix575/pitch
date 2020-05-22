@@ -46,15 +46,26 @@ type AuthData = {
     password: string
 }
 
-type LoginResponse = {
-    user?: object,
-    token?: string,
+type Response = {
     message: string
 }
 
-type AuthentificationResponse = {
+type UserDataQuery = {
+    token: string
+}
+
+interface LoginResponse extends Response {
+    user?: object,
+    token?: string,
+}
+
+interface AuthentificationResponse extends Response {
     message: string
     token?: string
+}
+
+interface UserDataResponse extends Response {
+    message: string
 }
 
 type AuthDataInit = {
@@ -64,3 +75,4 @@ type AuthDataInit = {
 export type CreateUserResolver = (_: any, data: CreateUserData) => object
 export type LoginResolver = (_: any, data: AuthData ) => Promise<LoginResponse>
 export type AuthentificationResolver = (_: any, data: AuthDataInit ) => Promise<AuthentificationResponse>
+export type UserDataResolver = (_: any, data: UserDataQuery) => Promise<UserDataResponse>

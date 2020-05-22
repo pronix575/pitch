@@ -1,4 +1,4 @@
-import { GetUsers, CreateUser, CreateUserResolver } from "../../../types"
+import { GetUsers, CreateUser, CreateUserResolver, UserDataResolver } from "../../../types"
 import { User } from "../../../models/User"
 import bcrypt from 'bcryptjs'
 import { userValidation } from "../../../validator/validator"
@@ -9,9 +9,9 @@ import { authMiddleware } from "../../middlewares"
 
 export const getUsers: GetUsers = async (_, { token }) => {
 
-    const userid = authMiddleware(token)
+    const auth = authMiddleware(token)
 
-    if (!userid) {
+    if (!auth) {
         return { message: "you don't have permission for this" }
     }
 
@@ -74,13 +74,41 @@ const createUser: CreateUser = async (userName, email, password) => {
 
 export const createUserResolver: CreateUserResolver = async (_: any, { userName, email, password }) => {
             
-    if (userName && email && password) {
-        const response = await createUser(userName, email, password)
+    try {
+    
+        if (userName && email && password) {
+            const response = await createUser(userName, email, password)
+            
+            if (response) { 
+                return response
+            }
 
-        if (response) { 
-            return response
+            return { message: "error" }
+        }
+    
+    } catch (e) {
+        return { message: 'server error' }
+    }
+}
+
+export const userDataResolver: UserDataResolver = async (_, { token }) => {
+    try {
+
+        const auth: any = authMiddleware(token)
+
+        if ( !auth ) { return { message: 'uncorrect token' } }
+
+        const user = await User.findOne({ _id: auth.id })
+
+        if ( !user ) { return { message: 'error' } }
+
+        return {
+            message: 'success',
+            user
         }
 
-        return { message: "error" }
+    } catch (e) {
+        console.log(e)
+        return { message: 'server error' }
     }
 }

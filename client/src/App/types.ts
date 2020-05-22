@@ -46,13 +46,15 @@ export type SubmitEvent = FormEvent<HTMLInputElement>
 export type LoginQuery = (form: SignInForm) => 
     Promise<ApolloCurrentQueryResult<LoginResponse>>
 
+export type UserDataQuery = (token: string) => 
+    Promise<ApolloCurrentQueryResult<UserDataResponse>>
+
 export type AuthentificationQuery = (token: string) => 
     Promise<ApolloCurrentQueryResult<AuthentificationData>>
 
 export type CreateUserMutation<T> = (form: SignUpForm) => 
     Promise<FetchResult<T, Record<string, any>, Record<string, any>>>
 
-// export type createUserMutation = () => Promise<>
 
 type Avatar = {
     url: string
@@ -94,7 +96,16 @@ export type LoginResponse = { login: Login }
 export type SignUpResponse = { 
     createUser: SignUpData
 }
-
+export type UserDataResponse = {
+    userData: {
+        message: string,
+        user: {
+            userName: string
+            email: string
+            avatar: string
+        }
+    }
+}
 
 // actions
 
@@ -111,5 +122,6 @@ export type TurnOffLoading = () => action
 // icons interface
 
 export interface Icon {
-    style?: React.CSSProperties
+    styles?: React.CSSProperties
+    className?: string
 }
